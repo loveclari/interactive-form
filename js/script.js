@@ -21,8 +21,7 @@ select.addEventListener('change', () => {
         OtherJobRole.style.display = "block"
     } else {
         OtherJobRole.style.display = "none"
-    }
-    
+    }   
 })
 
 
