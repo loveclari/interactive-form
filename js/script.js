@@ -16,12 +16,13 @@ window.addEventListener('load', (e) => {
 
 // show job input based on select
 
-select.addEventListener('change', () => {
-    if(otherJob) {
+select.addEventListener('change', (event) => {
+    if(event.target.value === 'other'){
         OtherJobRole.style.display = "block"
-    } else {
-        OtherJobRole.style.display = "none"
-    }   
+      } else if(event.target.value !== 'other'){
+            OtherJobRole.style.display = "none"
+      }
+    
 })
 
 
