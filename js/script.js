@@ -1,9 +1,11 @@
 // gloabl variables
 
 let inputFocus = document.querySelector('input#name');
-let select = document.getElementById('title');
+let selectJob = document.getElementById('title');
+let selectDesign = document.getElementById('design');
+let designColor = document.querySelector('#shirt-colors');
 let OtherJobRole = document.querySelector('input#other-job-role');
-let otherJob = select.options[6].value;
+let otherJob = selectJob.options[6].value;
 
 console.log(otherJob)
 
@@ -12,17 +14,33 @@ console.log(otherJob)
 window.addEventListener('load', (e) => {
     inputFocus.focus();
     OtherJobRole.style.display = "none"
-})
+    designColor.style.display = "none"
+});
+
+// prevent submit from loading the page
+
+document.getElementById('conferenceForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+});
 
 // show job input based on select
 
-select.addEventListener('change', (event) => {
+selectJob.addEventListener('change', (event) => {
     if(event.target.value === 'other'){
         OtherJobRole.style.display = "block"
       } else if(event.target.value !== 'other'){
-            OtherJobRole.style.display = "none"
+        OtherJobRole.style.display = "none"
       }
     
-})
+});
+
+selectDesign.addEventListener('change', (event) => {
+    if(event.target === selectDesign){
+        designColor.style.display = "block"
+      } else if(event.target.value !== 'other'){
+        designColor.style.display = "none"
+      }
+    
+});
 
 
