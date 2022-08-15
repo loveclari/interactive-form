@@ -5,6 +5,9 @@ let selectJob = document.getElementById('title');
 let selectDesign = document.getElementById('design');
 let designColor = document.querySelector('#shirt-colors');
 let OtherJobRole = document.querySelector('input#other-job-role');
+let jsPuns = document.querySelector('[data-theme="js puns"]');
+
+console.log(jsPuns)
 let otherJob = selectJob.options[6].value;
 
 console.log(otherJob)
@@ -19,8 +22,10 @@ window.addEventListener('load', (e) => {
 
 // prevent submit from loading the page
 
-document.getElementById('conferenceForm').addEventListener('submit', (e) => {
+document.getElementById('conferenceForm').addEventListener('keypress', (e) => {
+    if(e.key === 'Enter'){
     e.preventDefault();
+    }
 });
 
 // show job input based on select
@@ -39,7 +44,7 @@ selectDesign.addEventListener('change', (event) => {
         designColor.style.display = "block"
       } else if(event.target.value !== 'other'){
         designColor.style.display = "none"
-      }
+      } 
     
 });
 
