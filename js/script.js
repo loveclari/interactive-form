@@ -3,14 +3,18 @@
 let inputFocus = document.querySelector('input#name');
 let selectJob = document.getElementById('title');
 let selectDesign = document.getElementById('design');
+let selectColor = document.getElementById('color');
 let designColor = document.querySelector('#shirt-colors');
 let OtherJobRole = document.querySelector('input#other-job-role');
-let jsPuns = document.querySelector('[data-theme="js puns"]');
+// let jsPuns = document.querySelectorAll('[data-theme="js puns"]');
+// let heartJs = document.querySelectorAll('[data-theme="heart js"]');
 
-console.log(jsPuns)
 let otherJob = selectJob.options[6].value;
+let jsPunstheme = selectDesign.options[1].value;
+let heartJstheme = selectDesign.options[2].value;
 
-console.log(otherJob)
+console.log(jsPunstheme)
+console.log(heartJstheme)
 
 // adding focus on name input on load
 
@@ -39,12 +43,17 @@ selectJob.addEventListener('change', (event) => {
     
 });
 
+
 selectDesign.addEventListener('change', (event) => {
-    if(event.target === selectDesign){
-        designColor.style.display = "block"
-      } else if(event.target.value !== 'other'){
-        designColor.style.display = "none"
+    let jsPuns = document.querySelectorAll('[data-theme="js puns"]');
+    let heartJs = document.querySelectorAll('[data-theme="heart js"]');
+    if ( event.target === jsPunstheme){
+        jsPuns.style.display = "block";
+      } else if( event.target === heartJstheme ){
+        heartJs.style.display = "block";
       } 
+      console.log(jsPuns)
+      console.log(heartJs)
     
 });
 
