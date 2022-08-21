@@ -102,6 +102,12 @@ activityBox.addEventListener('change', () => {
 });
 
 
+payment.addEventListener('click', () => {
+
+
+});
+
+
 
 
 // Resources:
