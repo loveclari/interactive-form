@@ -1,4 +1,4 @@
-// gloabl variables
+// global variables
 
 let inputFocus = document.querySelector('input#name');
 let selectJob = document.getElementById('title');
@@ -7,6 +7,10 @@ let designColor = document.querySelector('#shirt-colors');
 let OtherJobRole = document.querySelector('input#other-job-role');
 let selectDesign = document.querySelector('select[id=design]')
 let otherJob = selectJob.options[6].value;
+let activities = document.forms['conferenceForm'].querySelectorAll('#activities');
+let activityBox = document.getElementById('activities-box');
+let activityBoxOptions = document.querySelectorAll('#activities-box');
+let activityTotal = document.getElementById('activities-cost');
 
 
 // adding focus on name input on load
@@ -51,7 +55,6 @@ selectDesign.addEventListener('change', (event) => {
     // Hide items that are not appart of the group
     
     options.forEach((element) => {
-
         if(element.getAttribute('data-theme') == theme){
             element.style.display = "block"
         } else if(element.getAttribute('data-theme') !== theme){
@@ -62,7 +65,37 @@ selectDesign.addEventListener('change', (event) => {
     
 });
 
+// create and event listener for the change in cost of course registration
 
+
+activityBox.addEventListener('change', () => {
+
+    let options = activityBox.querySelectorAll('input')
+
+    activityTotal.dataset.cost = '';
+
+    let total = 0;
+
+    let html = "";
+
+    // loop through the options 
+
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].checked) {
+          total = total + parseInt(options[i].dataset.cost);
+      }
+
+    }
+
+    // set the new total value
+
+    activityTotal.dataset.cost = total;
+
+    html += `<span>Total: $${total}<span>`
+
+    activityTotal.innerHTML = html;
+
+});
 
 
 
