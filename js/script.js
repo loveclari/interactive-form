@@ -11,14 +11,23 @@ let activities = document.forms['conferenceForm'].querySelectorAll('#activities'
 let activityBox = document.getElementById('activities-box');
 let activityBoxOptions = document.querySelectorAll('#activities-box');
 let activityTotal = document.getElementById('activities-cost');
+let payment = document.querySelector('#payment');
+
+let paymentHideFirst = payment.options[0];
+
+
+
+console.log(paymentHideFirst)
 
 
 // adding focus on name input on load
 
-window.addEventListener('load', (e) => {
+window.addEventListener('load', () => {
     inputFocus.focus();
     OtherJobRole.style.display = "none";
     designColor.style.display = "none";
+    paymentHideFirst.parentNode.removeChild(paymentHideFirst)
+    
 });
 
 // prevent submit from loading the page
