@@ -12,12 +12,7 @@ let activityBox = document.getElementById('activities-box');
 let activityBoxOptions = document.querySelectorAll('#activities-box');
 let activityTotal = document.getElementById('activities-cost');
 let payment = document.querySelector('#payment');
-
 let paymentHideFirst = payment.options[0];
-
-
-
-console.log(paymentHideFirst)
 
 
 // adding focus on name input on load
