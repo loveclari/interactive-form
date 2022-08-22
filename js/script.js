@@ -12,6 +12,9 @@ let activityBox = document.getElementById('activities-box');
 let activityBoxOptions = document.querySelectorAll('#activities-box');
 let activityTotal = document.getElementById('activities-cost');
 let payment = document.querySelector('#payment');
+let creditcard = document.querySelector('#credit-card');
+let paypal = document.querySelector('#paypal');
+let bitcoin = document.querySelector('#bitcoin');
 let paymentHideFirst = payment.options[0];
 
 
@@ -30,7 +33,7 @@ window.addEventListener('load', () => {
 document.getElementById('conferenceForm').addEventListener('keypress', (e) => {
     if(e.key === 'Enter'){
     e.preventDefault();
-    }
+    } 
 });
 
 // show job input based on select
@@ -102,8 +105,25 @@ activityBox.addEventListener('change', () => {
 });
 
 
-payment.addEventListener('click', () => {
+payment.addEventListener('change', (event) => {
 
+    let selected = event.target.options[event.target.selectedIndex]
+    let selectedPayment = selected.value
+
+    let paymentOptions = Array.from(document.querySelectorAll('[class=payment-options]>div'))
+
+    console.log(paymentOptions)
+
+    paymentOptions.forEach((element) => {
+        
+        if(element.getAttribute('id') == selectedPayment){
+            element.style.display = "block"
+            console.log(element.getAttribute('id'), 'this is the element')
+        } else if(element.getAttribute('id') !== selectedPayment){
+            element.style.display = "none"
+        }
+
+    });  
 
 });
 
