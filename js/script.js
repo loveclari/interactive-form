@@ -104,6 +104,8 @@ activityBox.addEventListener('change', () => {
 
 });
 
+// create an event listener to show the user only the payment features he selected
+
 
 payment.addEventListener('change', (event) => {
 
@@ -112,13 +114,10 @@ payment.addEventListener('change', (event) => {
 
     let paymentOptions = Array.from(document.querySelectorAll('[class=payment-options]>div'))
 
-    console.log(paymentOptions)
-
     paymentOptions.forEach((element) => {
         
         if(element.getAttribute('id') == selectedPayment){
             element.style.display = "block"
-            console.log(element.getAttribute('id'), 'this is the element')
         } else if(element.getAttribute('id') !== selectedPayment){
             element.style.display = "none"
         }
