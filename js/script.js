@@ -120,10 +120,10 @@ let checkbox = Array.from(document.querySelectorAll('input[type=checkbox]'));
 
 checkbox.forEach((checkbox) => {
     checkbox.addEventListener("focus", (event) => {
-      event.target.parentElement.classList.add("focus");
+      event.target.parentNode.classList.add("focus");
     });
     checkbox.addEventListener("blur", (event) => {
-      event.target.parentElement.classList.remove("focus");
+      event.target.parentNode.classList.remove("focus");
     });
 });
 
