@@ -226,3 +226,4 @@ submit.addEventListener('submit', (event) => {
 // https://cheatography.com/davechild/cheat-sheets/regular-expressions/
 // https://stackoverflow.com/questions/71538996/get-id-of-child-elements
 // http://www.madirish.net/11
+// https://teamtreehouse.com/library/validating-a-username
