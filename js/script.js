@@ -10,6 +10,7 @@ let otherJob = selectJob.options[6].value;
 let activities = document.forms['conferenceForm'].querySelectorAll('#activities');
 let activityBox = document.getElementById('activities-box');
 let activityBoxOptions = document.querySelectorAll('#activities-box');
+let activityBoxlabel = document.querySelectorAll("input[type=checkbox]");
 let activityTotal = document.getElementById('activities-cost');
 let payment = document.querySelector('#payment');
 let creditcard = document.querySelector('#credit-card');
@@ -22,8 +23,6 @@ let ccInput = document.getElementById('cc-num');
 let emailInput = document.getElementById('email');
 let zipInput = document.getElementById('zip');
 let cvvInput = document.getElementById('cvv');
-
-
 
 
 // adding focus on name input on load
@@ -116,6 +115,7 @@ activityBox.addEventListener('change', () => {
 
 // adding class for focus depending on event
 
+let checkbox = Array.from(document.querySelectorAll('input[type=checkbox]'));
 
 
 checkbox.forEach((checkbox) => {
@@ -215,8 +215,7 @@ ccInput.addEventListener("input", createListener(ccValidation));
 // adding event listener to the form submit
 
 submit.addEventListener('submit', (event) => {
-    console.log(event.target)
-
+    console.log(event.target);
 })
 
 
