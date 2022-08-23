@@ -154,23 +154,19 @@ payment.addEventListener('change', (event) => {
 
 const nameValidation = (name) => {
     return /^[a-z]+$/.test(name);
-
 }
 
 const emailValidation = (email) => {
     return /^$|^.*@.*\..*$/.test(email);
-
 }
 
 
 const cvvValidation = (cvv) => {
     return /^[0-9]{3,4}$/.test(cvv)
-
 }
 
 const zipValidation = (zip) => {
     return /^[0-9]{5}$/.test(zip)
-
 }
 
 const ccValidation = (ccNum) => {
