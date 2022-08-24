@@ -5,8 +5,8 @@ This form will allow users:
 1. Enter name and email to register for an event
 2. Select merch design and color for the event
 3. Select Subject with specific dates and times of events
-4. Enter payment informa - creditcard - paypal and bitcon
-5. Know the total price they will pay if choosing moe than one event
+4. Enter payment information - right now we have: creditcard - paypal and bitcon
+5. Know the total price they will pay if choosing more than one event
 
 The application will feature:
 
