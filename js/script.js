@@ -84,13 +84,15 @@ selectDesign.addEventListener('change', (event) => {
     options.forEach((element) => {
         if(element.getAttribute('data-theme') == theme){
             element.style.display = "block"
-            options.selected = true;
         } else if(element.getAttribute('data-theme') !== theme){
             element.style.display = "none"
-            options.selected = false;
         }
 
+        ;
+
     });  
+
+    document.querySelector('select[id=color]').selectedIndex = 0;
     
 });
 
