@@ -17,8 +17,8 @@ The application will feature:
 
 Tech Stack:
 
-HTML5 - forms
-CSS
-Vanilla Javascript
-Accessibility 
+- HTML5 - forms
+- CSS
+- Vanilla Javascript
+- Accessibility 
 
