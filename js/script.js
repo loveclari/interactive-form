@@ -2,7 +2,7 @@
 
 let selectJob = document.getElementById('title');
 let selectColor = document.getElementById('color');
-let designColor = document.querySelector('#shirt-colors');
+let designColor = document.querySelector('#color');
 let OtherJobRole = document.querySelector('input#other-job-role');
 let selectDesign = document.querySelector('select[id=design]')
 let otherJob = selectJob.options[6].value;
@@ -33,7 +33,7 @@ let hint = document.getElementById('name-hint');
 window.addEventListener('load', () => {
     nameInput.focus();
     OtherJobRole.style.display = "none";
-    designColor.style.display = "none";
+    designColor.classList.add('disabled')
     paymentHideFirst.parentNode.removeChild(paymentHideFirst);
     paypal.style.display = "none";
     bitcoin.style.display = "none";
@@ -70,7 +70,7 @@ selectJob.addEventListener('change', (event) => {
 
 selectDesign.addEventListener('change', (event) => {
 
-    designColor.style.display = "block";
+    designColor.classList.remove('disabled')
 
     let selected = event.target.options[event.target.selectedIndex];
     let theme = selected.value;
@@ -84,8 +84,10 @@ selectDesign.addEventListener('change', (event) => {
     options.forEach((element) => {
         if(element.getAttribute('data-theme') == theme){
             element.style.display = "block"
+            options.selected = true;
         } else if(element.getAttribute('data-theme') !== theme){
             element.style.display = "none"
+            options.selected = false;
         }
 
     });  
@@ -181,7 +183,7 @@ payment.addEventListener('change', (event) => {
 
 // form validation
 
-const nameValidation = (event) => {
+const nameValidation = () => {
     let nameRegex = /^[a-zA-Z]+\s?[a-zA-Z]+$/.test(nameInput.value);
     let checknumbers = /^[0-9]+$/.test(nameInput.value)
 
