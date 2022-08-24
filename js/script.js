@@ -97,21 +97,33 @@ selectDesign.addEventListener('change', (event) => {
 // create and event listener for the change in cost of course registration
 
 
-activityBox.addEventListener('change', () => {
+activityBox.addEventListener('change', (event) => {
 
     let options = activityBox.querySelectorAll('input')
-
+    let checkedBoxDateTime = event.target.getAttribute('data-day-and-time')
+ 
     activityTotal.dataset.cost = '';
 
     let total = 0;
 
     let html = "";
 
+
     // loop through the options 
 
     for (let i = 0; i < options.length; i++) {
+       
       if (options[i].checked) {
           total = total + parseInt(options[i].dataset.cost);
+      }
+
+      if (options[i].getAttribute('data-day-and-time') === checkedBoxDateTime ) {
+          options[i].disabled = true
+          options[i].parentNode.classList.add('disabled')
+      } else if (options[i].getAttribute('data-day-and-time') !== checkedBoxDateTime) { 
+          options[i].checked.disabled = false
+          options[i].parentNode.classList.remove('disabled')
+
       }
 
     }
@@ -169,8 +181,9 @@ payment.addEventListener('change', (event) => {
 
 // form validation
 
-const nameValidation = () => {
+const nameValidation = (event) => {
     let nameRegex = /^[a-zA-Z]+\s?[a-zA-Z]+$/.test(nameInput.value);
+    let checknumbers = /^[0-9]+$/.test(nameInput.value)
 
     if (nameInput.value && nameRegex) {
         return nameInput.parentNode.className = "valid";
@@ -178,16 +191,21 @@ const nameValidation = () => {
     } else if (nameInput) { 
         nameInput.parentNode.className = "not-valid";
 
-    } else return false;    
-}
+    } else return false; 
 
+    if (nameInput.value && checknumbers) {
+        hint.innerHTML = "Name cannot be numbers"
+    }
+}
+    
 const emailValidation = () => {
    let emailRegex = /^$|^.*@.*\..*$/.test(emailInput.value);
 
     if (emailInput.value && emailRegex) {
         return emailInput.parentNode.className = "valid";
         
-    } else if (emailInput) { 
+    } 
+    else if (emailInput) { 
        emailInput.parentNode.className = "not-valid";
 
     } else return false;   
@@ -263,7 +281,7 @@ const scrollToFirstInvalidControl = () => {
 
 // adding event listeners for form validators
 
-nameInput.addEventListener("keydown", createListener(nameValidation));
+nameInput.addEventListener("keyup", createListener(nameValidation));
 
 emailInput.addEventListener("keyup", createListener(emailValidation));
 
@@ -292,8 +310,7 @@ submit.addEventListener('click', (event) => {
 
     if (!nameValidation()) {
       console.log('Invalid name prevented submission');
-      alert('no')
-  
+    
     }
 
     if (!emailValidation()) {
