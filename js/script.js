@@ -256,9 +256,8 @@ const ccValidation = () => {
 const activityBoxValidation = () => {
     if(activityTotal.dataset.cost === 0){
     return activityOptions.parentNode.classList.add('not-valid');
-    } else if(activityTotal.dataset.cost > 0 ){
-        return activityOptions.parentNode.classList.remove('valid');
-    }
+    } else return activityOptions.parentNode.classList.remove('valid');
+        
 }
 
 
