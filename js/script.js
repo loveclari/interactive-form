@@ -302,7 +302,6 @@ ccInput.addEventListener("input", createListener(ccValidation));
 
 submit.addEventListener('submit', (event) => {
 
-    event.preventDefault();
 
     //scrolltop - this is not working =(
 
