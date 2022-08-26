@@ -7,7 +7,7 @@ let OtherJobRole = document.querySelector('input#other-job-role');
 let selectDesign = document.querySelector('select[id=design]')
 let otherJob = selectJob.options[6].value;
 let activities = document.forms['conferenceForm'].querySelectorAll('#activities');
-let validForm = document.querySelectorAll('label[class]');
+let label = document.querySelectorAll('label');
 let activityBox = document.getElementById('activities-box');
 let activityBoxOptions = document.querySelectorAll('#activities-box');
 let activityBoxlabel = document.querySelectorAll("input[type=checkbox]");
@@ -17,7 +17,8 @@ let creditcard = document.querySelector('#credit-card');
 let paypal = document.querySelector('#paypal');
 let bitcoin = document.querySelector('#bitcoin');
 let paymentHideFirst = payment.options[0];
-let submit = document.querySelector('button[type=submit]');
+let submit = document.querySelector('#conferenceForm');
+let activityOptions = activityBox.querySelectorAll('input')
 
 
 let nameInput = document.querySelector('input#name');
@@ -103,7 +104,6 @@ selectDesign.addEventListener('change', (event) => {
 
 activityBox.addEventListener('change', (event) => {
 
-    let options = activityBox.querySelectorAll('input')
     let checkedBoxDateTime = event.target.getAttribute('data-day-and-time')
  
     activityTotal.dataset.cost = '';
@@ -112,24 +112,22 @@ activityBox.addEventListener('change', (event) => {
 
     let html = "";
 
-
     // loop through the options 
 
-    for (let i = 0; i < options.length; i++) {
-       
-      if (options[i].checked) {
-          total = total + parseInt(options[i].dataset.cost);
-      }
-
-      if (options[i].getAttribute('data-day-and-time') === checkedBoxDateTime ) {
-          options[i].disabled = true
-          options[i].parentNode.classList.add('disabled')
-      } else if (options[i].getAttribute('data-day-and-time') !== checkedBoxDateTime) { 
-          options[i].checked.disabled = false
-          options[i].parentNode.classList.remove('disabled')
-
-      }
-
+    for (let i = 0; i < activityOptions.length; i++) {
+        if (activityOptions[i].getAttribute('data-day-and-time') === checkedBoxDateTime && event.target !== activityOptions[i]){
+            if (event.target.checked){
+            activityOptions[i].disabled = true;
+            activityOptions[i].parentNode.classList.add('disabled')
+        } else {
+            activityOptions[i].disabled = false;
+            activityOptions[i].parentNode.classList.remove('disabled')
+        }
+        }
+        if (activityOptions[i].checked && activityOptions[i].getAttribute('data-day-and-time')) {
+            total = total + parseInt(activityOptions[i].dataset.cost);
+    
+        } 
     }
 
     // set the new total value
@@ -177,6 +175,9 @@ payment.addEventListener('change', (event) => {
         } else if(element.getAttribute('id') !== selectedPayment){
             element.style.display = "none"
         }
+        else if(selectedPayment === paypal || bitcoin){
+            activityTotalElement.parentElement.classList.add('valid');
+        }
 
     });  
 
@@ -217,10 +218,10 @@ const emailValidation = () => {
 
 
 const cvvValidation = () => {
-    let cvvRegex = /^[0-9]{3,4}$/.test(cvvInput.value)
+    let cvvRegex = /^[0-9]{3}$/.test(cvvInput.value)
 
     if (cvvInput.value && cvvRegex) {
-        cvvInput.parentNode.className = "valid";
+        return cvvInput.parentNode.className = "valid";
     
     } else if (cvvInput) { 
          cvvInput.parentNode.className = "not-valid";
@@ -252,6 +253,15 @@ const ccValidation = () => {
     } else return false
 }
 
+const activityBoxValidation = () => {
+    if(activityTotal.dataset.cost === 0){
+    return activityOptions.parentNode.classList.add('not-valid');
+    } else if(activityTotal.dataset.cost > 0 ){
+        return activityOptions.parentNode.classList.remove('valid');
+    }
+}
+
+
 // helper functions
 // show element when show is true, hide when false
 
@@ -273,15 +283,6 @@ const createListener = (validator) => {
     };
 }
 
-// scroll to top function
-
-const scrollToFirstInvalidControl = () => {
-    const firstInvalidControl = document.querySelector("form#conferenceForm");
-    firstInvalidControl.focus();  
-}
-
- 
-
 
 // adding event listeners for form validators
 
@@ -289,7 +290,7 @@ nameInput.addEventListener("keyup", createListener(nameValidation));
 
 emailInput.addEventListener("keyup", createListener(emailValidation));
 
-cvvInput.addEventListener("input", createListener(cvvValidation));
+cvvInput.addEventListener("keyup", createListener(cvvValidation));
 
 zipInput.addEventListener("input", createListener(zipValidation));
 
@@ -299,16 +300,19 @@ ccInput.addEventListener("input", createListener(ccValidation));
 
 // adding event listener to the form submit
 
-submit.addEventListener('click', (event) => {
+submit.addEventListener('submit', (event) => {
 
     event.preventDefault();
 
-    // trying to make the form scroll to the location where the validation showing !valid
+    //scrolltop - this is not working =(
 
-    if( validForm.value === "not-valid"){
-        scrollToFirstInvalidControl()
-        console.log('hello', scrollToFirstInvalidControl())
+   
+    for(let i =0; i < label.length; i++ ) {
+        if(label[i].className === 'not-valid') {
+            label[i].scrollIntoView();
+        }
     }
+
 
     // list of validation functions
 
@@ -323,6 +327,7 @@ submit.addEventListener('click', (event) => {
 
     if (!ccValidation()) {
       console.log('Invalid credit card prevented submission');
+      
     }
 
     if (!zipValidation()) {
@@ -331,11 +336,15 @@ submit.addEventListener('click', (event) => {
 
     if (!cvvValidation()) {
         console.log('Invalid cvv prevented submission');
+        event.preventDefault();
     }
+
+    if(!activityBoxValidation()){
+       console.log('Invalid user did not choose a program')
+    }
+
   
 });
-
-
 
 
 
