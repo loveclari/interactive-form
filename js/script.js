@@ -213,6 +213,8 @@ const nameValidation = () => {
         hint.innerHTML = "Name cannot be numbers"
     }
 }
+
+// email validation
     
 const emailValidation = () => {
    let emailRegex = /^$|^.*@.*\..*$/.test(emailInput.value);
@@ -225,6 +227,8 @@ const emailValidation = () => {
 
     } else return false;   
 }
+
+// credit card validation
 
 
 const ccValidation = () => {
@@ -240,6 +244,7 @@ const ccValidation = () => {
 
 }
 
+// credit card security number validation
 
 const cvvValidation = () => {
     let cvvRegex = /^[0-9]{3}$/.test(cvvInput.value)
@@ -254,6 +259,7 @@ const cvvValidation = () => {
     } else return false;
 }
 
+// credit ard zip code validation
 
 const zipValidation = () => {
     let zipRegex = /^[0-9]{5}$/.test(zipInput.value)
@@ -288,6 +294,8 @@ const createListener = (validator) => {
       showHideHint(showHint, toolHint);
     };
 }
+
+// function for payment validation based on selected Index
 
 const paymentValidation = () => {
     if (payment.selectedIndex == 0) {
@@ -327,7 +335,7 @@ ccInput.addEventListener("input", createListener(ccValidation));
 
 submit.addEventListener('submit', (event) => {
 
-    // list of validation functions
+    // list of non-payment validation functions
 
     if (!nameValidation()) {
       console.log('Invalid name prevented submission');
@@ -340,11 +348,13 @@ submit.addEventListener('submit', (event) => {
 
     paymentValidation();
 
+    // checkbox activities validation
+
     checkbox.forEach((checkbox) => {
         if (checkbox.checked == false && !activityTotal.dataset.cost) {
             console.log('Invalid user did not choose a program') 
                 return checkbox.parentNode.className = 'not-valid';
-        } else return checkbox.parentNode.className = 'not-valid';   
+        } else return checkbox.parentNode.className = 'valid';   
     });
         
   
