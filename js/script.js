@@ -117,6 +117,10 @@ activityBox.addEventListener('change', (event) => {
     // loop through the options 
 
     for (let i = 0; i < activityOptions.length; i++) {
+        if (activityOptions[i].checked && !activityOptions[i].getAttribute('data-day-and-time') ) {
+            total = total + parseInt(activityOptions[i].dataset.cost);
+    
+        } 
         if (activityOptions[i].getAttribute('data-day-and-time') === checkedBoxDateTime && event.target !== activityOptions[i]){
             if (event.target.checked){
             activityOptions[i].disabled = true;
@@ -144,19 +148,26 @@ activityBox.addEventListener('change', (event) => {
 
 
 
+
 // adding class for focus depending on event
 
 let checkbox = Array.from(document.querySelectorAll('input[type=checkbox]'));
 
-
-checkbox.forEach((checkbox) => {
-    checkbox.addEventListener("focus", (event) => {
-      event.target.parentNode.classList.add("focus");
+    checkbox.forEach((checkbox) => {
+        checkbox.addEventListener("focus", (event) => {
+        event.target.parentNode.classList.add("focus");
+        });
+        checkbox.addEventListener("blur", (event) => {
+        event.target.parentNode.classList.remove("focus");
+        });
+        checkbox.addEventListener("click", (event) => {
+            if(checkbox.checked){
+             event.target.parentNode.className = 'valid';
+            } else event.target.parentNode.classList.remove('valid');
+        
+        });
+             
     });
-    checkbox.addEventListener("blur", (event) => {
-      event.target.parentNode.classList.remove("focus");
-    });
-});
 
 
 
@@ -184,6 +195,7 @@ payment.addEventListener('change', (event) => {
 
 
 // form validation
+
 
 const nameValidation = () => {
     let nameRegex = /^[a-zA-Z]+\s?[a-zA-Z]+$/.test(nameInput.value);
@@ -214,6 +226,21 @@ const emailValidation = () => {
     } else return false;   
 }
 
+const activityValidation = () => {
+
+    checkbox.forEach((checkbox) => {
+        if (checkbox.checked == false && !activityTotal.dataset.cost) {
+            return checkbox.parentNode.classList = 'not-valid';
+        } else  if(checkbox.checked  && activityTotal.dataset.cost > 1 ){
+            return checkbox.parentNode.className = 'valid';
+        } else return false;
+             
+    });
+
+}
+
+
+
 const ccValidation = () => {
     let ccRegex =  /^[0-9]{13,16}$/.test(ccInput.value)
 
@@ -241,6 +268,7 @@ const cvvValidation = () => {
     } else return false;
 }
 
+
 const zipValidation = () => {
     let zipRegex = /^[0-9]{5}$/.test(zipInput.value)
 
@@ -253,16 +281,6 @@ const zipValidation = () => {
     } else return false
 }
 
-const activityBoxValidation = () => {
-    // let activityOptions = activityBox.querySelectorAll('input')
-    let activityOption = activityBox.querySelector('input')
-
-    console.log(activityOption)
-    if(activityTotal.dataset.cost = ''){
-    return activityOption.parentNode.className = 'not-valid';
-    } else return activityOption.parentNode.className = 'valid';
-        
-}
 
 
 
@@ -341,10 +359,9 @@ submit.addEventListener('submit', (event) => {
 
     paymentValidation();
 
-
-    if(!activityBoxValidation()){
+    if(!activityValidation()){
        console.log('Invalid user did not choose a program')
-    }
+    } 
   
 });
 
