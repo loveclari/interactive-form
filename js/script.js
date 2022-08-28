@@ -208,8 +208,7 @@ const emailValidation = () => {
     if (emailInput.value && emailRegex) {
         return emailInput.parentNode.className = "valid";
         
-    } 
-    else if (emailInput) { 
+    } else if (emailInput) { 
        emailInput.parentNode.className = "not-valid";
 
     } else return false;   
@@ -220,12 +219,11 @@ const ccValidation = () => {
 
     if (ccInput.value && ccRegex) {
         return ccInput.parentNode.className = "valid";
-
-    } 
-    if (payment.selectedIndex === 1 && ccInput){ 
+        
+    } else if (ccInput){ 
         return ccInput.parentNode.className = "not-valid";
-   
-    } else return false;
+
+    }  else return false
 
 }
 
@@ -236,7 +234,8 @@ const cvvValidation = () => {
     if (cvvInput.value && cvvRegex) {
         return cvvInput.parentNode.className = "valid";
     
-    } else if (cvvInput) { 
+    } 
+    else if (cvvInput) { 
          cvvInput.parentNode.className = "not-valid";
 
     } else return false;
@@ -255,11 +254,17 @@ const zipValidation = () => {
 }
 
 const activityBoxValidation = () => {
-    if(activityTotal.dataset.cost === 0){
+    // let activityOptions = activityBox.querySelectorAll('input')
+    let activityOption = activityBox.querySelector('input')
+
+    console.log(activityOption)
+    if(activityTotal.dataset.cost = ''){
     return activityOption.parentNode.className = 'not-valid';
     } else return activityOption.parentNode.className = 'valid';
         
 }
+
+
 
 
 // helper functions
@@ -283,6 +288,27 @@ const createListener = (validator) => {
     };
 }
 
+const paymentValidation = () => {
+    if (payment.selectedIndex == 0) {
+
+        if (!ccValidation()) {
+            console.log('Invalid credit card prevented submission')
+        } else if (ccValidation) {
+            console.log('Invalid credit card prevented submission')
+        }
+        if (!zipValidation()) {
+            console.log('Invalid zipcode prevented submission');
+        }
+
+        if (!cvvValidation()) {
+            console.log('Invalid cvv prevented submission');
+            event.preventDefault();
+        }
+    }
+
+    console.log(payment.selectedIndex)
+}
+
 
 // adding event listeners for form validators
 
@@ -302,17 +328,6 @@ ccInput.addEventListener("input", createListener(ccValidation));
 
 submit.addEventListener('submit', (event) => {
 
-
-    //scrolltop - this is not working =(
-
-   
-    // for(let i = 0; i < label.length; i++ ) {
-    //     if(event.target.label[i].className === 'not-valid') {
-    //         event.target.label[i].scrollIntoView();
-    //     }
-    // }
-
-
     // list of validation functions
 
     if (!nameValidation()) {
@@ -324,25 +339,12 @@ submit.addEventListener('submit', (event) => {
       console.log('Invalid email prevented submission');
     }
 
-    if (!ccValidation()) {
-      console.log('Invalid credit card prevented submission')
+    paymentValidation();
 
-      
-    }
-
-    if (!zipValidation()) {
-        console.log('Invalid zipcode prevented submission');
-    }
-
-    if (!cvvValidation()) {
-        console.log('Invalid cvv prevented submission');
-        event.preventDefault();
-    }
 
     if(!activityBoxValidation()){
        console.log('Invalid user did not choose a program')
     }
-
   
 });
 
