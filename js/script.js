@@ -19,7 +19,9 @@ let bitcoin = document.querySelector('#bitcoin');
 let paymentHideFirst = payment.options[0];
 let submit = document.querySelector('#conferenceForm');
 let activityOptions = activityBox.querySelectorAll('input')
+let activityOption = activityBox.querySelector('input')
 
+// validation variables
 
 let nameInput = document.querySelector('input#name');
 let ccInput = document.getElementById('cc-num');
@@ -173,13 +175,10 @@ payment.addEventListener('change', (event) => {
         if(element.getAttribute('id') == selectedPayment){
             element.style.display = "block"
         } else if(element.getAttribute('id') !== selectedPayment){
-            element.style.display = "none"
+            element.style.display = "none"; 
         }
-        else if(selectedPayment === paypal || bitcoin){
-            activityTotalElement.parentElement.classList.add('valid');
-        }
-
     });  
+
 
 });
 
@@ -216,6 +215,20 @@ const emailValidation = () => {
     } else return false;   
 }
 
+const ccValidation = () => {
+    let ccRegex =  /^[0-9]{13,16}$/.test(ccInput.value)
+
+    if (ccInput.value && ccRegex) {
+        return ccInput.parentNode.className = "valid";
+
+    } 
+    if (payment.selectedIndex === 1 && ccInput){ 
+        return ccInput.parentNode.className = "not-valid";
+   
+    } else return false;
+
+}
+
 
 const cvvValidation = () => {
     let cvvRegex = /^[0-9]{3}$/.test(cvvInput.value)
@@ -241,22 +254,10 @@ const zipValidation = () => {
     } else return false
 }
 
-const ccValidation = () => {
-    let ccRegex =  /^[0-9]{13,16}$/.test(ccInput.value)
-
-    if (ccInput.value && ccRegex) {
-        return ccInput.parentNode.className = "valid";
-
-    } else if (ccInput){ 
-        ccInput.parentNode.className = "not-valid";
-    
-    } else return false
-}
-
 const activityBoxValidation = () => {
     if(activityTotal.dataset.cost === 0){
-    return activityOptions.parentNode.classList.add('not-valid');
-    } else return activityOptions.parentNode.classList.remove('valid');
+    return activityOption.parentNode.className = 'not-valid';
+    } else return activityOption.parentNode.className = 'valid';
         
 }
 
@@ -305,11 +306,11 @@ submit.addEventListener('submit', (event) => {
     //scrolltop - this is not working =(
 
    
-    for(let i =0; i < label.length; i++ ) {
-        if(label[i].className === 'not-valid') {
-            label[i].scrollIntoView();
-        }
-    }
+    // for(let i = 0; i < label.length; i++ ) {
+    //     if(event.target.label[i].className === 'not-valid') {
+    //         event.target.label[i].scrollIntoView();
+    //     }
+    // }
 
 
     // list of validation functions
@@ -324,7 +325,8 @@ submit.addEventListener('submit', (event) => {
     }
 
     if (!ccValidation()) {
-      console.log('Invalid credit card prevented submission');
+      console.log('Invalid credit card prevented submission')
+
       
     }
 
