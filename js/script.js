@@ -226,20 +226,6 @@ const emailValidation = () => {
     } else return false;   
 }
 
-const activityValidation = () => {
-
-    checkbox.forEach((checkbox) => {
-        if (checkbox.checked == false && !activityTotal.dataset.cost) {
-            return checkbox.parentNode.classList = 'not-valid';
-        } else  if(checkbox.checked  && activityTotal.dataset.cost > 1 ){
-            return checkbox.parentNode.className = 'valid';
-        } else return false;
-             
-    });
-
-}
-
-
 
 const ccValidation = () => {
     let ccRegex =  /^[0-9]{13,16}$/.test(ccInput.value)
@@ -282,9 +268,6 @@ const zipValidation = () => {
 }
 
 
-
-
-
 // helper functions
 // show element when show is true, hide when false
 
@@ -323,8 +306,6 @@ const paymentValidation = () => {
             event.preventDefault();
         }
     }
-
-    console.log(payment.selectedIndex)
 }
 
 
@@ -359,9 +340,13 @@ submit.addEventListener('submit', (event) => {
 
     paymentValidation();
 
-    if(!activityValidation()){
-       console.log('Invalid user did not choose a program')
-    } 
+    checkbox.forEach((checkbox) => {
+        if (checkbox.checked == false && !activityTotal.dataset.cost) {
+            console.log('Invalid user did not choose a program') 
+                return checkbox.parentNode.className = 'not-valid';
+        } else return checkbox.parentNode.className = 'not-valid';   
+    });
+        
   
 });
 
