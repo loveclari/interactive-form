@@ -297,7 +297,7 @@ const createListener = (validator) => {
 
 // function for payment validation based on selected Index
 
-const paymentValidation = () => {
+const paymentValidation = (event) => {
     if (payment.selectedIndex == 0) {
 
         if (!ccValidation()) {
