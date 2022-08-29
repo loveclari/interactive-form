@@ -359,8 +359,6 @@ submit.addEventListener('submit', (event) => {
 
         let span = document.querySelector('#activities>legend>span');
 
-
-
         if (checkbox.checked == false && !activityTotal.dataset.cost) {
             console.log('Invalid user did not choose a program') 
             activityBox.parentElement.lastElementChild.style.display = "block";
