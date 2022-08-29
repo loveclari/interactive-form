@@ -354,13 +354,30 @@ submit.addEventListener('submit', (event) => {
     // checkbox activities validation
 
     checkbox.forEach((checkbox) => {
+
+        let legend = document.querySelector('#activities>legend');
+
+        let span = document.querySelector('#activities>legend>span');
+
+
+
         if (checkbox.checked == false && !activityTotal.dataset.cost) {
             console.log('Invalid user did not choose a program') 
             activityBox.parentElement.lastElementChild.style.display = "block";
-                return checkbox.parentNode.className = 'not-valid';
-        } else return checkbox.parentNode.className = 'valid';   
+            legend.style.color = 'red';
+            span.style.color = 'red';
+            document.querySelector('#activities-box').style.borderColor = 'red';
+                return legend.className = 'not-valid';
+        } else {
+            activityBox.parentElement.lastElementChild.style.display = "none";
+            legend.style.color = 'black';
+            span.style.color = 'black';
+            document.querySelector('#activities-box').style.borderColor = 'transparent';
+            return legend.className = 'valid';
+        }
+
     });
-        
+
   
 });
 
