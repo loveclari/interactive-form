@@ -73,7 +73,8 @@ selectJob.addEventListener('change', (event) => {
 
 selectDesign.addEventListener('change', (event) => {
 
-    designColor.classList.remove('disabled')
+    designColor.classList.remove('disabled');
+    selectColor.childNodes[1].textContent = 'Select a color';
 
     let selected = event.target.options[event.target.selectedIndex];
     let theme = selected.value;
@@ -86,7 +87,7 @@ selectDesign.addEventListener('change', (event) => {
     
     options.forEach((element) => {
         if(element.getAttribute('data-theme') == theme){
-            element.style.display = "block"
+            element.style.display = "block";
         } else if(element.getAttribute('data-theme') !== theme){
             element.style.display = "none"
         }
@@ -297,7 +298,7 @@ const createListener = (validator) => {
 
 // function for payment validation based on selected Index
 
-const paymentValidation = (event) => {
+const paymentValidation = () => {
     if (payment.selectedIndex == 0) {
 
         if (!ccValidation()) {
