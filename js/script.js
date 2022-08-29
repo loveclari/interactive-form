@@ -301,9 +301,6 @@ const createListener = (validator) => {
     };
 }
 
-// function for payment validation based on selected Index
-
-
 
 // adding event listeners for form validators
 
@@ -359,6 +356,7 @@ submit.addEventListener('submit', (event) => {
     checkbox.forEach((checkbox) => {
         if (checkbox.checked == false && !activityTotal.dataset.cost) {
             console.log('Invalid user did not choose a program') 
+            activityBox.parentElement.lastElementChild.style.display = "block";
                 return checkbox.parentNode.className = 'not-valid';
         } else return checkbox.parentNode.className = 'valid';   
     });
